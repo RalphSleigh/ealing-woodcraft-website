@@ -41,7 +41,7 @@ resource "aws_s3_bucket_acl" "hugo" {
   acl    = "public-read"
 
   depends_on = [
-    aws_s3_bucket_public_access_block.frontend_public_access_block,
+    aws_s3_bucket_public_access_block.hugo_public_access_block,
   ]
 }
 
@@ -50,7 +50,7 @@ resource "aws_s3_bucket_policy" "hugo" {
   policy = local.bucket_policy
 
   depends_on = [
-    aws_s3_bucket_public_access_block.frontend_public_access_block,
+    aws_s3_bucket_public_access_block.hugo_public_access_block,
   ]
 }
 
