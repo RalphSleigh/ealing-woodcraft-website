@@ -1,4 +1,5 @@
-variable deployment_user_arn {
-  description = "The ARN of the IAM user that will deploy the website"
+variable "bucket_name" {
+  description = "The name of the S3 bucket to create"
   type        = string
+  default       = "webtest.ealingwoodcraft.org.uk"
 }
