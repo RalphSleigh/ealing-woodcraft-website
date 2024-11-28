@@ -20,8 +20,14 @@ resource "aws_s3_bucket" "hugo" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_ownership_controls" "hugo_ownership" {
+   bucket = aws_s3_bucket.hugo.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
 
-resource "aws_s3_bucket_public_access_block" "frontend_public_access_block" {
+resource "aws_s3_bucket_public_access_block" "hugo_public_access_block" {
   bucket = aws_s3_bucket.hugo.id
 
   block_public_acls       = false
