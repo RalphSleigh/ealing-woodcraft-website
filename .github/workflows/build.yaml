@@ -25,15 +25,15 @@ jobs:
 
     - name: Initialize Terraform
       run: terraform init
-      dir: ./terraform
+      working-directory: ./terraform
 
     - name: Apply Terraform
       run: terraform apply -auto-approve -var "deployment_user_arn=arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-role"
-      dir: ./terraform
+      working-directory: ./terraform
 
     - name: Set up Hugo
       uses: peaceiris/actions-hugo@v2
 
     - name: Build Hugo site
       run: hugo
-      dir: ./ealingwoodcraft
+      working-directory: ./ealingwoodcraft
