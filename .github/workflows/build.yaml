@@ -37,6 +37,8 @@ jobs:
     - name: Apply Terraform
       run: terraform apply -auto-approve -var "deployment_user_arn=arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-role"
       working-directory: ./terraform
+      env:
+        TF_LOG: TRACE
 
     - name: Set up Hugo
       uses: peaceiris/actions-hugo@v2
