@@ -27,19 +27,22 @@ resource "aws_s3_bucket_ownership_controls" "hugo_ownership" {
   }
 }
 
-resource "aws_s3_bucket_acl" "public_static_acl" {
+resource "aws_s3_bucket_public_access_block" "example" {
   bucket = aws_s3_bucket.hugo.id
-  acl    = "private"
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 data "aws_iam_policy_document" "s3_policy_public_static" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.hugo.arn}/*"]
-
     principals {
       type        = "AWS"
-      identifiers = [aws_cloudfront_distribution.hugo.arn]
+      identifiers = ["*"]
     }
   }
 }
