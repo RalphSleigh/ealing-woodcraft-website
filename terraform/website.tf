@@ -100,7 +100,7 @@ resource "aws_cloudfront_distribution" "hugo" {
   depends_on = [aws_s3_bucket.hugo]
 
   origin {
-    domain_name = aws_s3_bucket.hugo.bucket_regional_domain_name
+    domain_name = aws_s3_bucket_website_configuration.hugo.website_endpoint
     origin_id   = "hugo-s3-origin"
     origin_path = "/public"
 
