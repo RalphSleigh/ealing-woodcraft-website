@@ -92,7 +92,6 @@ data "aws_acm_certificate" "cert" {
  * Create CloudFront distribution for SSL support but caching disabled, leave that to Cloudflare
  */
 resource "aws_cloudfront_distribution" "hugo" {
-  count      = 1
   depends_on = [aws_s3_bucket.hugo]
 
   origin {
