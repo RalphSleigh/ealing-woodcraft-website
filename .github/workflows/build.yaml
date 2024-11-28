@@ -45,5 +45,9 @@ jobs:
         hugo-version: '0.136.0'
 
     - name: Build Hugo site
+      run: hugo
+      working-directory: ./ealingwoodcraft
+
+    - name: Deploy Hugo site
       run: hugo deploy
       working-directory: ./ealingwoodcraft
