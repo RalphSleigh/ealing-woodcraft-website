@@ -11,7 +11,7 @@ data "aws_caller_identity" "current" {}
 locals {
   bucket_policy = templatefile("./bucket-policy.json", {
     bucket_name         = var.bucket_name
-    deployment_user_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/github_role"
+    deployment_user_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/github-role"
   })
 }
 
@@ -20,14 +20,32 @@ resource "aws_s3_bucket" "hugo" {
   force_destroy = true
 }
 
+
+resource "aws_s3_bucket_public_access_block" "frontend_public_access_block" {
+  bucket = aws_s3_bucket.hugo.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
 resource "aws_s3_bucket_acl" "hugo" {
   bucket = aws_s3_bucket.hugo.id
   acl    = "public-read"
+
+  depends_on = [
+    aws_s3_bucket_public_access_block.frontend_public_access_block,
+  ]
 }
 
 resource "aws_s3_bucket_policy" "hugo" {
   bucket = aws_s3_bucket.hugo.id
   policy = local.bucket_policy
+
+  depends_on = [
+    aws_s3_bucket_public_access_block.frontend_public_access_block,
+  ]
 }
 
 resource "aws_s3_bucket_website_configuration" "hugo" {
@@ -65,7 +83,7 @@ resource "aws_s3_bucket_cors_configuration" "hugo" {
 
 // Get ACM cert for use with CloudFront
 data "aws_acm_certificate" "cert" {
-  domain = "webtest.ealingwoodcraft.org.uk"
+  domain   = "webtest.ealingwoodcraft.org.uk"
   provider = aws.us-east-1
 }
 
