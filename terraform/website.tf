@@ -27,31 +27,26 @@ resource "aws_s3_bucket_ownership_controls" "hugo_ownership" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "hugo_public_access_block" {
+resource "aws_s3_bucket_acl" "public_static_acl" {
   bucket = aws_s3_bucket.hugo.id
-
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  acl    = "private"
 }
 
-resource "aws_s3_bucket_acl" "hugo" {
-  bucket = aws_s3_bucket.hugo.id
-  acl    = "public-read"
+data "aws_iam_policy_document" "s3_policy_public_static" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.hugo.arn}/*"]
 
-  depends_on = [
-    aws_s3_bucket_public_access_block.hugo_public_access_block,
-  ]
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.identity.iam_arn]
+    }
+  }
 }
 
-resource "aws_s3_bucket_policy" "hugo" {
+resource "aws_s3_bucket_policy" "public_static_policy" {
   bucket = aws_s3_bucket.hugo.id
-  policy = local.bucket_policy
-
-  depends_on = [
-    aws_s3_bucket_public_access_block.hugo_public_access_block,
-  ]
+  policy = data.aws_iam_policy_document.s3_policy_public_static.json
 }
 
 resource "aws_s3_bucket_website_configuration" "hugo" {
@@ -93,6 +88,10 @@ data "aws_acm_certificate" "cert" {
   provider = aws.us-east-1
 }
 
+resource "aws_cloudfront_origin_access_identity" "identity" {
+
+}
+
 /*
  * Create CloudFront distribution for SSL support but caching disabled, leave that to Cloudflare
  */
@@ -101,19 +100,13 @@ resource "aws_cloudfront_distribution" "hugo" {
   depends_on = [aws_s3_bucket.hugo]
 
   origin {
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
-
-    // Important to use this format of origin domain name, it is the only format that
-    // supports S3 redirects with CloudFront
-    domain_name = "${var.bucket_name}.s3-website-eu-west-2.amazonaws.com"
-
+    domain_name = aws_s3_bucket.hugo.bucket_regional_domain_name
     origin_id   = "hugo-s3-origin"
     origin_path = "/public"
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.identity.cloudfront_access_identity_path
+    }
   }
 
   dynamic "custom_error_response" {
