@@ -1,0 +1,4 @@
+baseURL = 'https://www.ealingwoodcraft.org.uk/'
+languageCode = 'en-gb'
+title = 'My New Hugo Site'
+theme = 'ananke'
