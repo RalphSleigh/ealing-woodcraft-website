@@ -88,10 +88,6 @@ data "aws_acm_certificate" "cert" {
   provider = aws.us-east-1
 }
 
-resource "aws_cloudfront_origin_access_identity" "identity" {
-
-}
-
 /*
  * Create CloudFront distribution for SSL support but caching disabled, leave that to Cloudflare
  */
@@ -103,9 +99,6 @@ resource "aws_cloudfront_distribution" "hugo" {
     domain_name = aws_s3_bucket_website_configuration.hugo.website_endpoint
     origin_id   = "hugo-s3-origin"
     origin_path = "/public"
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.identity.cloudfront_access_identity_path
-    }
 
     custom_origin_config {
       http_port              = "80"
