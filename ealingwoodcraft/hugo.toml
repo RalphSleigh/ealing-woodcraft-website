@@ -1,4 +1,8 @@
 baseURL = 'https://www.ealingwoodcraft.org.uk/'
 languageCode = 'en-gb'
 title = 'My New Hugo Site'
-theme = 'ananke'
+
+[module]
+  [[module.imports]]
+    path = 'github.com/theNewDynamic/gohugo-theme-ananke'
+
