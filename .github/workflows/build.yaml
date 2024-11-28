@@ -42,5 +42,5 @@ jobs:
       uses: peaceiris/actions-hugo@v2
 
     - name: Build Hugo site
-      run: hugo
+      run: hugo deploy
       working-directory: ./ealingwoodcraft

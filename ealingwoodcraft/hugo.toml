@@ -1,8 +1,19 @@
-baseURL = 'https://www.ealingwoodcraft.org.uk/'
+baseURL = 'https://webtest.ealingwoodcraft.org.uk/'
 languageCode = 'en-gb'
 title = 'My New Hugo Site'
 
 [module]
   [[module.imports]]
     path = 'github.com/theNewDynamic/gohugo-theme-ananke'
+
+
+[deployment]
+
+[[deployment.targets]]
+# An arbitrary name for this target.
+name = "production"
+
+URL = "s3://webtest.ealingwoodcraft.org.uk?region=eu-west-2"
+
+
 
