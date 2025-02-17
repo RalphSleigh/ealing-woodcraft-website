@@ -85,11 +85,24 @@ resource "aws_s3_bucket_cors_configuration" "hugo" {
   }
 }
 
+locals {
+  mime_map = {
+    css         = "text/css"
+    html        = "text/html"
+    ico         = "image/x-icon"
+    png         = "image/png"
+    svg         = "image/svg+xml"
+    webmanifest = "application/manifest+json"
+    xml         = "application/xml"
+  }
+}
+
+
 resource "aws_s3_object" "files_upload" {
   for_each = fileset("../scrape/scraped/www.ealingwoodcraft.org.uk", "**/*.*")
   bucket      = aws_s3_bucket.hugo.id
   key         = "public/${each.value}"
-  content_type = each.value
+  content_type = lookup(local.mime_map, reverse(split(".", key))[0], "text/plain")
   source      = "../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}"
   source_hash = filemd5("../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}")
 }
