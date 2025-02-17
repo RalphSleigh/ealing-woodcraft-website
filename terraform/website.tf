@@ -91,7 +91,7 @@ resource "aws_s3_object" "files_upload" {
   key         = "public/${each.value}"
   content_type = each.value
   source      = "${path.root}/dir_upload/${each.value}"
-  source_hash = filemd5("${path.root}/dir_upload/${each.value}")
+  source_hash = filemd5("../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}")
 }
 
 // Get ACM cert for use with CloudFront
