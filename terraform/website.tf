@@ -102,7 +102,7 @@ resource "aws_s3_object" "files_upload" {
   for_each = fileset("../scrape/scraped/www.ealingwoodcraft.org.uk", "**/*.*")
   bucket      = aws_s3_bucket.hugo.id
   key         = "public/${each.value}"
-  content_type = lookup(local.mime_map, reverse(split(".", key))[0], "text/plain")
+  content_type = lookup(local.mime_map, reverse(split(".", each.value))[0], "text/plain")
   source      = "../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}"
   source_hash = filemd5("../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}")
 }
