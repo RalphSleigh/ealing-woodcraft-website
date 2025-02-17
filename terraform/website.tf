@@ -90,7 +90,7 @@ resource "aws_s3_object" "files_upload" {
   bucket      = "bucket-name"
   key         = "public/${each.value}"
   content_type = each.value
-  source      = "${path.root}/dir_upload/${each.value}"
+  source      = "../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}"
   source_hash = filemd5("../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}")
 }
 
