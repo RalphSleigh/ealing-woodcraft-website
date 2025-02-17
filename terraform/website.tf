@@ -109,7 +109,7 @@ resource "aws_s3_object" "files_upload" {
 
 // Get ACM cert for use with CloudFront
 data "aws_acm_certificate" "cert" {
-  domain   = "*.ealingwoodcraft.org.uk"
+  domain   = "ealingwoodcraft.org.uk"
   provider = aws.us-east-1
 }
 
@@ -145,7 +145,7 @@ resource "aws_cloudfront_distribution" "hugo" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
-  aliases = ["webtest.ealingwoodcraft.org.uk", "www.ealingwoodcraft.org.uk", "ealingwoodcraft.org.uk"]
+  aliases = ["www.ealingwoodcraft.org.uk", "ealingwoodcraft.org.uk"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
