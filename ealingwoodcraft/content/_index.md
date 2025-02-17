@@ -1,6 +1,7 @@
 +++
-featured_image = '/images/gohugo-default-sample-hero-image.jpg'
+draft = false
 +++
+
 ## Hello World
 
-This is the homepage
+This is the homepage w00t

@@ -1,7 +1,6 @@
 baseURL = 'https://webtest.ealingwoodcraft.org.uk/'
 languageCode = 'en-gb'
 title = 'My New Hugo Site'
-theme = ["github.com/theNewDynamic/gohugo-theme-ananke/v2"]
 
 [deployment]
 [[deployment.targets]]

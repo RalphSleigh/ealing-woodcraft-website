@@ -85,6 +85,15 @@ resource "aws_s3_bucket_cors_configuration" "hugo" {
   }
 }
 
+resource "aws_s3_object" "files_upload" {
+  for_each = fileset("../scrape/scraped/www.ealingwoodcraft.org.uk", "**/*.*")
+  bucket      = "bucket-name"
+  key         = "public/${each.value}"
+  content_type = each.value
+  source      = "${path.root}/dir_upload/${each.value}"
+  source_hash = filemd5("${path.root}/dir_upload/${each.value}")
+}
+
 // Get ACM cert for use with CloudFront
 data "aws_acm_certificate" "cert" {
   domain   = "webtest.ealingwoodcraft.org.uk"

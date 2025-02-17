@@ -38,16 +38,16 @@ jobs:
       run: terraform apply -auto-approve
       working-directory: ./terraform
 
-    - name: Set up Hugo
-      uses: peaceiris/actions-hugo@v2
-      with:
-        extended: true
-        hugo-version: '0.136.0'
+    #- name: Set up Hugo
+    #  uses: peaceiris/actions-hugo@v2
+    #  with:
+    #    extended: true
+    #   hugo-version: '0.136.0'
 
-    - name: Build Hugo site
-      run: hugo
-      working-directory: ./ealingwoodcraft
+    #- name: Build Hugo site
+    #  run: hugo
+    #  working-directory: ./ealingwoodcraft
 
-    - name: Deploy Hugo site
-      run: hugo deploy
-      working-directory: ./ealingwoodcraft
+    #- name: Deploy Hugo site
+    #  run: hugo deploy
+    #  working-directory: ./ealingwoodcraft
