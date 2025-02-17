@@ -87,7 +87,7 @@ resource "aws_s3_bucket_cors_configuration" "hugo" {
 
 resource "aws_s3_object" "files_upload" {
   for_each = fileset("../scrape/scraped/www.ealingwoodcraft.org.uk", "**/*.*")
-  bucket      = "bucket-name"
+  bucket      = aws_s3_bucket.hugo.id
   key         = "public/${each.value}"
   content_type = each.value
   source      = "../scrape/scraped/www.ealingwoodcraft.org.uk/${each.value}"
