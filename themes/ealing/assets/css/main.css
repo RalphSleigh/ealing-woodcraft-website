@@ -12,7 +12,6 @@ body {
 header {
   background-image: url("/images/header-background.jpg");
   background-size: cover;
-  //min-height: 21vh
 }
 
 
@@ -29,7 +28,6 @@ header div.stuff {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  //height: calc(21vh - 3rem);
 }
 
 header h1 {
