@@ -1,0 +1,14 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Ealing & Hammersmith Woodcraft Folk'
+theme = 'ealing'
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+  [[menus.main]]
+    name = 'Forms & Policies'
+    pageRef = '/formsandpolicies'
+    weight = 20

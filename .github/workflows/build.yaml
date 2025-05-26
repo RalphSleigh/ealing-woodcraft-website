@@ -24,8 +24,14 @@ jobs:
           role-session-name: terraform-session
           aws-region: eu-west-2
 
-    - name: test
-      run: aws acm list-certificates --region us-east-1
+    - name: Set up Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        extended: true
+        hugo-version: '0.136.0'
+
+    - name: Build Hugo site
+      run: hugo
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
@@ -38,15 +44,7 @@ jobs:
       run: terraform apply -auto-approve
       working-directory: ./terraform
 
-    #- name: Set up Hugo
-    #  uses: peaceiris/actions-hugo@v2
-    #  with:
-    #    extended: true
-    #   hugo-version: '0.136.0'
 
-    #- name: Build Hugo site
-    #  run: hugo
-    #  working-directory: ./ealingwoodcraft
 
     #- name: Deploy Hugo site
     #  run: hugo deploy

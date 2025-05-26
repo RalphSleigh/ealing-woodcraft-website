@@ -1,8 +1,7 @@
 terraform/.terraform
 
-ealingwoodcraft/public
-ealingwoodcraft/resources
-ealingwoodcraft/themes
-ealingwoodcraft/.hugo_build.lock
+public
+resources
+.hugo_build.lock
 
 scrape/node_modules/**
