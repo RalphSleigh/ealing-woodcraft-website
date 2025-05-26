@@ -32,6 +32,6 @@ You can find more infomation about the woodcraft folk on our [National Website](
 
 Our groups in Ealing are run in the evening during term time, currently they are run by a mixture of parents, DFs and previous members.
 
-On Monday evenings in Hanwell we have elfin, pioneer and venturer groups.
+On **Monday** evenings in **Hanwell** we have elfin, pioneer and venturer groups.
 
 We also have an active DF group that usually meets on mondays. For more infomation about our groups contact Monika at [monika_eady@yahoo.co.uk](mailto:monika_eady@yahoo.co.uk). You can also find us on [Facebook](https://www.facebook.com/groups/ealingwoodcraft).
